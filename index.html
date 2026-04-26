@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bread & Butter Marketing — Notice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red:        #D94F3D;
+      --red-soft:   rgba(217,79,61,0.09);
+      --red-border: rgba(217,79,61,0.20);
+      --bg:         #060606;
+      --surface:    #0d0d0d;
+      --line:       #141414;
+      --border:     rgba(255,255,255,0.05);
+      --text:       #ECEEE8;
+      --dim:        #8A8A82;
+      --muted:      #3E3E38;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.022;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── TICKER ── */
+    .ticker {
+      background: var(--red);
+      overflow: hidden;
+      padding: 9px 0;
+      white-space: nowrap;
+      position: relative;
+      z-index: 10;
+    }
+    .ticker-track {
+      display: inline-block;
+      animation: slide 28s linear infinite;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #fff;
+      padding-left: 100%;
+    }
+    @keyframes slide {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-100%); }
+    }
+    .dot { margin: 0 2rem; opacity: 0.3; }
+
+    /* ── PAGE WRAP ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: clamp(3rem, 8vw, 6rem) clamp(1.25rem, 5vw, 5rem) clamp(3rem, 6vw, 5rem);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding-bottom: clamp(3rem, 6vw, 5rem);
+      border-bottom: 1px solid var(--line);
+      margin-bottom: clamp(3rem, 6vw, 5rem);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+    }
+    .eyebrow-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--red);
+      display: inline-block;
+      flex-shrink: 0;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.35; transform: scale(0.65); }
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(36px, 6vw, 78px);
+      font-weight: 400;
+      line-height: 1.07;
+      color: var(--text);
+      letter-spacing: -1px;
+      margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+      min-height: 3.3em;
+      transition: opacity 0.35s ease;
+    }
+    h1.fading  { opacity: 0; }
+    h1.visible { opacity: 1; }
+
+    h1 em {
+      font-style: italic;
+      color: var(--red);
+      position: relative;
+      display: inline-block;
+    }
+    h1 em::after {
+      content: '';
+      position: absolute;
+      bottom: 3px;
+      left: 0; right: 0;
+      height: 1px;
+      background: var(--red);
+      opacity: 0.35;
+    }
+
+    .lead {
+      font-size: clamp(14px, 1.6vw, 16px);
+      font-weight: 300;
+      color: var(--dim);
+      line-height: 1.9;
+      max-width: 580px;
+    }
+    .lead strong { color: var(--text); font-weight: 400; }
+
+    /* ── PAYMENT SUMMARY CARD ── */
+    .pay-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+    .pay-cell {
+      background: var(--bg);
+      padding: clamp(1.25rem, 2.5vw, 1.75rem) clamp(1rem, 2vw, 1.5rem);
+    }
+    .pay-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .pay-val {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(26px, 4vw, 38px);
+      display: block;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .pay-val.white { color: var(--text); }
+    .pay-val.red   { color: var(--red); }
+    .pay-val.dim   { color: var(--dim); }
+    .pay-note {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── SECTION LABEL ── */
+    .lbl {
+      font-size: 9.5px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    /* ── CONTENT GRID ── */
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 4vw, 4rem);
+      margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+      align-items: start;
+    }
+
+    /* ── TIMELINE ── */
+    .tl-row {
+      padding: clamp(0.85rem, 1.5vw, 1.1rem) 0;
+      border-top: 1px solid var(--line);
+    }
+    .tl-row:last-child { border-bottom: 1px solid var(--line); }
+    .tl-d {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+    .tl-t {
+      font-size: clamp(13px, 1.3vw, 14px);
+      color: var(--dim);
+      line-height: 1.72;
+    }
+    .tl-t strong { color: var(--text); font-weight: 400; }
+    .tl-t .r    { color: var(--red); }
+
+    /* ── FACTS ── */
+    .fact {
+      display: flex;
+      gap: 0.85rem;
+      padding: clamp(0.85rem, 1.5vw, 1rem) 0;
+      border-top: 1px solid var(--line);
+      align-items: flex-start;
+    }
+    .fact:last-child { border-bottom: 1px solid var(--line); }
+    .fx {
+      color: var(--red);
+      font-size: 10px;
+      font-weight: 600;
+      margin-top: 4px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .fact p {
+      font-size: clamp(12.5px, 1.3vw, 13.5px);
+      color: #5a5a54;
+      line-height: 1.68;
+    }
+    .fact strong { color: var(--dim); font-weight: 400; }
+
+    /* ── QUOTE ── */
+    .quote {
+      padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.25rem, 2.5vw, 2rem);
+      border-left: 1px solid var(--red);
+      background: var(--surface);
+      border-radius: 0 12px 12px 0;
+      margin-bottom: clamp(2rem, 4vw, 4rem);
+    }
+    .q-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(18px, 2.5vw, 26px);
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.4;
+      margin-bottom: 0.9rem;
+    }
+    .q-attr {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* ── WARNING ── */
+    .warn {
+      background: var(--red-soft);
+      border: 1px solid var(--red-border);
+      border-radius: 14px;
+      padding: clamp(1.5rem, 3vw, 2.25rem);
+      margin-bottom: clamp(2rem, 4vw, 4rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .warn::before {
+      content: '!';
+      position: absolute;
+      right: -8px;
+      top: -24px;
+      font-family: 'DM Serif Display', serif;
+      font-size: 160px;
+      color: var(--red);
+      opacity: 0.04;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .warn-tag {
+      font-size: 9.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+    .warn p {
+      font-size: clamp(13.5px, 1.5vw, 15px);
+      color: #b89490;
+      line-height: 1.9;
+      position: relative;
+    }
+    .warn strong { color: #fff; font-weight: 400; }
+
+    /* ── FOOTER ── */
+    .footer {
+      border-top: 1px solid var(--line);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer p {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .footer a {
+      font-size: 11px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--muted);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .footer a:hover { color: var(--text); border-color: var(--text); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .content { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      h1 { min-height: 4.2em; letter-spacing: -0.5px; }
+      .pay-summary { grid-template-columns: 1fr 1fr; }
+      .footer { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 360px) {
+      .pay-summary { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ticker">
+    <span class="ticker-track">
+      Bread &amp; Butter Marketing Agency has not paid their developer for their work
+      <span class="dot">·</span>
+      100+ days of work — developer payment still outstanding
+      <span class="dot">·</span>
+      Domain purchased by the developer — LKR 5,000 paid, not reimbursed
+      <span class="dot">·</span>
+      Developer fee: not paid. Not one cent.
+      <span class="dot">·</span>
+      They said "hold the project" — still holding. Still unpaid.
+      <span class="dot">·</span>
+      Calls not answered. Messages ignored.
+      <span class="dot">·</span>
+    </span>
+  </div>
+
+  <div class="page">
+
+    <section class="hero">
+      <p class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        Public Notice &nbsp;/&nbsp; Bread &amp; Butter Marketing Agency
+      </p>
+
+      <h1 id="hero-title" class="visible">
+        Built their website.<br>
+        Held the project.<br>
+        Got paid <em>nothing.</em>
+      </h1>
+
+      <p class="lead">
+        I was hired by Bread &amp; Butter Marketing Agency on <strong>January 12, 2025</strong>
+        to design and build their website. I completed the work in full.
+        I purchased their domain myself — <strong>LKR 5,000 from my own pocket.</strong>
+        They paid only that LKR 5,000 domain cost — and nothing else.
+        My <strong>developer fee has not been paid. Not a single cent.</strong>
+        When I ask, they say "hold the project, we'll pay when we can." That was over <strong>100 days ago.</strong>
+      </p>
+    </section>
+
+    <!-- PAYMENT BREAKDOWN -->
+    <div class="pay-summary">
+      <div class="pay-cell">
+        <p class="pay-label">Domain cost — paid by me</p>
+        <span class="pay-val white">LKR 5,000</span>
+        <p class="pay-note">They reimbursed this amount only.<br>Nothing else.</p>
+      </div>
+      <div class="pay-cell">
+        <p class="pay-label">Developer fee — still owed</p>
+        <span class="pay-val red">LKR 0</span>
+        <p class="pay-note">Not a single cent paid for<br>the actual website work.</p>
+      </div>
+      <div class="pay-cell">
+        <p class="pay-label">Days since hired</p>
+        <span class="pay-val dim">100+</span>
+        <p class="pay-note">Since January 12, 2025.<br>Still waiting for payment.</p>
+      </div>
+      <div class="pay-cell">
+        <p class="pay-label">Calls answered</p>
+        <span class="pay-val red">0</span>
+        <p class="pay-note">After promising to pay,<br>they stopped picking up.</p>
+      </div>
+    </div>
+
+    <!-- CONTENT GRID -->
+    <div class="content">
+
+      <!-- LEFT: TIMELINE -->
+      <div>
+        <p class="lbl">What happened</p>
+
+        <div class="tl-row">
+          <p class="tl-d">Jan 12, 2025</p>
+          <p class="tl-t">Hired by Bread &amp; Butter Marketing Agency. Asked to start immediately with <strong>no advance payment.</strong> I agreed and got to work.</p>
+        </div>
+        <div class="tl-row">
+          <p class="tl-d">During the project</p>
+          <p class="tl-t">I designed and built their full website. I also <strong>paid LKR 5,000 for their domain</strong> from my own money since they hadn't arranged it.</p>
+        </div>
+        <div class="tl-row">
+          <p class="tl-d">Domain reimbursed</p>
+          <p class="tl-t">They paid me back the <strong>LKR 5,000 domain cost only.</strong> That is the only money I have ever received. My developer fee — the actual work — <span class="r">was never paid.</span></p>
+        </div>
+        <div class="tl-row">
+          <p class="tl-d">Work completed</p>
+          <p class="tl-t">Website fully finished and ready. I asked to be paid for my work. They said: <span class="r">"Hold the project, we'll pay when we can."</span></p>
+        </div>
+        <div class="tl-row">
+          <p class="tl-d">Every follow-up</p>
+          <p class="tl-t"><span class="r">"Call me tomorrow after 8 PM."</span> I called. <strong>No answer. Every time, without fail.</strong></p>
+        </div>
+        <div class="tl-row">
+          <p class="tl-d">1–1.5 months ago</p>
+          <p class="tl-t">I removed the site from hosting. The domain is registered to me. <strong>This page is here instead.</strong></p>
+        </div>
+        <div class="tl-row">
+          <p class="tl-d">Today</p>
+          <p class="tl-t"><strong>Still no payment for my work.</strong> The finished project sits with me. They have no website and no control of this domain.</p>
+        </div>
+      </div>
+
+      <!-- RIGHT: FACTS -->
+      <div>
+        <p class="lbl">The facts — clearly stated</p>
+
+        <div class="fact">
+          <span class="fx">✕</span>
+          <p>No advance payment before work started — told to <strong>"just start"</strong></p>
+        </div>
+        <div class="fact">
+          <span class="fx">✕</span>
+          <p>They paid <strong>LKR 5,000 only</strong> — this was the domain cost I covered, not my developer fee</p>
+        </div>
+        <div class="fact">
+          <span class="fx">✕</span>
+          <p>My developer fee for building the website has <strong>not been paid. Not one cent.</strong></p>
+        </div>
+        <div class="fact">
+          <span class="fx">✕</span>
+          <p>Work completed in full — they told me to <strong>"hold the project until they can pay"</strong></p>
+        </div>
+        <div class="fact">
+          <span class="fx">✕</span>
+          <p>Every payment request was <strong>delayed, ignored, or met with silence</strong></p>
+        </div>
+        <div class="fact">
+          <span class="fx">✕</span>
+          <p>They promised to pay then <strong>stopped answering my calls entirely</strong></p>
+        </div>
+        <div class="fact">
+          <span class="fx">✕</span>
+          <p>Over <strong>100 days</strong> have passed. Developer fee paid: <strong>LKR 0.</strong></p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- QUOTE -->
+    <div class="quote">
+      <p class="q-text">"Call me tomorrow after 8 PM."</p>
+      <p class="q-attr">What they told me every single time I asked about my payment.<br>I called at 8 PM. It rang out. Same story the next day. And the day after that.</p>
+    </div>
+
+    <!-- WARNING -->
+    <div class="warn">
+      <p class="warn-tag">To their clients &amp; anyone considering working with them</p>
+      <p>
+        Bread &amp; Butter Marketing Agency hired me to build their complete website.
+        The only money they paid was <strong>LKR 5,000</strong> — which was just to reimburse the domain I bought for them.
+        For the actual development work, they have paid <strong>absolutely nothing.</strong>
+        They asked me to hold the project, promised to pay, then went silent.
+        <br><br>
+        If they do this to the person who built their own website —
+        think carefully about what they will do with <strong>your money and your time.</strong>
+      </p>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <p>Domain registered to the developer &nbsp;·&nbsp; All facts stated here are accurate &nbsp;·&nbsp; This page stays live until my developer fee is paid in full</p>
+      <a href="https://imrishmika.dev" target="_blank" rel="noopener">imrishmika.dev</a>
+    </div>
+
+  </div>
+
+  <script>
+    var titles = [
+      "Built their website.<br>Held the project.<br>Got paid <em>nothing.</em>",
+      "I did the work.<br>They made excuses.<br>Developer fee: <em>zero.</em>",
+      "100 days of work.<br>100 days of silence.<br><em>Not one cent.</em>",
+      "They said hold it.<br>I held it.<br>Still no <em>payment.</em>",
+      "Built. Delivered.<br>Ignored completely.<br>Fee paid: <em>LKR 0.</em>",
+      "My work. My domain.<br>Their silence.<br>Developer fee: <em>unpaid.</em>"
+    ];
+
+    var el = document.getElementById('hero-title');
+    var idx = Math.floor(Math.random() * titles.length);
+    el.innerHTML = titles[idx];
+
+    setInterval(function() {
+      el.classList.remove('visible');
+      el.classList.add('fading');
+      setTimeout(function() {
+        idx = (idx + 1) % titles.length;
+        el.innerHTML = titles[idx];
+        el.classList.remove('fading');
+        el.classList.add('visible');
+      }, 380);
+    }, 5000);
+  </script>
+
+</body>
+</html>
